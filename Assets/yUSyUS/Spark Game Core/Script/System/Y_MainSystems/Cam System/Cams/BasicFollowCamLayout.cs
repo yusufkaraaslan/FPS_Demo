@@ -25,7 +25,7 @@ namespace SparkGameCore
 
         private void Start()
         {
-            followObj.SetActive(false);
+            followObj.GetComponent<MeshRenderer>().enabled = false;
             lookObj.SetActive(false);
         }
 

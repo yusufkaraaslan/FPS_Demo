@@ -10,8 +10,7 @@ public class UIFunctions : MonoBehaviour
 
     public void CloseExitPopup()
     {
-        ui.CloseUI("ExitPopup");
-        gameManeger.ResumeGame();
+        gameManeger.CloseExitPopup();
     }
 
 

@@ -8,12 +8,19 @@ public class GameManeger : MonoBehaviour
     public static GameState State { get => state; }
     static GameState state;
 
-    [SerializeField] LevelManeger levelManeger;
     UIManeger ui;
+    CameraSystem cam;
+
+    [SerializeField] LevelManeger levelManeger;
+
+    [SerializeField] ImmediateCamLayout menuCamPos;
 
     public void Init()
     {
         ui = UIManeger.GetInstance();
+        cam = CameraSystem.GetInstance();
+
+        Cursor.lockState = CursorLockMode.Confined;
         ui.OpenUIClean("Menu");
         levelManeger.Init();
         state = GameState.Menu;
@@ -21,6 +28,8 @@ public class GameManeger : MonoBehaviour
 
     public void StartGame()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
         levelManeger.StartLevel();
         ui.OpenUIClean("Ingame");
 
@@ -29,6 +38,9 @@ public class GameManeger : MonoBehaviour
 
     public void ReturnMenu()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        cam.SetCam("Main", new ImmediateCam(), menuCamPos);
         levelManeger.EndLevel();
         ui.OpenUIClean("Menu");
 
@@ -37,6 +49,22 @@ public class GameManeger : MonoBehaviour
 
     public void ResumeGame()
     {
+        state = GameState.Ingame;
+    }
+
+    public void OpenExitPopup()
+    {
+        ui.OpenUI("ExitPopup");
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        state = GameState.InGameMenu;
+    }
+
+    public void CloseExitPopup()
+    {
+        ui.CloseUI("ExitPopup");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
         state = GameState.Ingame;
     }
 

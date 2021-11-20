@@ -44,7 +44,6 @@ public class Player : MonoBehaviour
         float horizontalMove = Input.GetAxis("Horizontal") * runSpeed * Time.deltaTime;
 
         transform.Translate(new Vector3(horizontalMove, 0, verticalMove), camData.transform);
-
     }
 
     void PlayerLook()

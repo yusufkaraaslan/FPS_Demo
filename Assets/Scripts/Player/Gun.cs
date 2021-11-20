@@ -28,6 +28,7 @@ public class Gun : MonoBehaviour
             item.Init();
         }
 
+        bulletCount.RestartBoard();
         currGunType = GunType.Pistol;
     }
 
@@ -40,6 +41,7 @@ public class Gun : MonoBehaviour
 
     public void ActivateGun()
     {
+        bulletCount.RestartBoard();
         currGunType = GunType.Pistol;
         OpenCurrentGun();
     }
@@ -81,7 +83,7 @@ public class Gun : MonoBehaviour
 
     public void Fire()
     {
-        currGun.Fire(bulletMod);
+        bulletCount.UpdateBoard(currGun.Fire(bulletMod));
     }
 
     void OpenCurrentGun()

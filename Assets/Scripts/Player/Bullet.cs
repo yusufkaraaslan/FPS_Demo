@@ -124,7 +124,10 @@ public class Bullet : PoolObject
 
     private void OnTriggerEnter(Collider other)
     {
-        state = BulletState.Hit;
+        if (other.tag != "Bullet")
+        {
+            state = BulletState.Hit;
+        }
     }
 
 }

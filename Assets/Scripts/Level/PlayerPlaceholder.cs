@@ -9,6 +9,7 @@ public class PlayerPlaceholder : MonoBehaviour
     private void Start()
     {
         lookDir.SetActive(false);
+        gameObject.SetActive(false);
     }
 
 }

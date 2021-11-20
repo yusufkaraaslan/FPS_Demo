@@ -54,12 +54,18 @@ public class Player : MonoBehaviour
 
     void PlayerShoot()
     {
-
+        if (Input.GetButtonDown("Fire1"))
+        {
+            gun.Fire();
+        }
     }
 
     void PlayerChangeGun()
     {
-
+        if (Input.GetButtonDown("Fire2"))
+        {
+            gun.NextGun();
+        }
     }
 
     private void Update()

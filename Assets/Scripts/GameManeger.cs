@@ -29,7 +29,6 @@ public class GameManeger : MonoBehaviour
     public void StartGame()
     {
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
         levelManeger.StartLevel();
         ui.OpenUIClean("Ingame");
 
@@ -39,7 +38,6 @@ public class GameManeger : MonoBehaviour
     public void ReturnMenu()
     {
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
         cam.SetCam("Main", new ImmediateCam(), menuCamPos);
         levelManeger.EndLevel();
         ui.OpenUIClean("Menu");
@@ -56,7 +54,6 @@ public class GameManeger : MonoBehaviour
     {
         ui.OpenUI("ExitPopup");
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
         state = GameState.InGameMenu;
     }
 
@@ -64,7 +61,6 @@ public class GameManeger : MonoBehaviour
     {
         ui.CloseUI("ExitPopup");
         Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
         state = GameState.Ingame;
     }
 
@@ -73,21 +69,32 @@ public class GameManeger : MonoBehaviour
         Init();
     }
 
+    void TriggerPopup(string panelName)
+    {
+        switch (state)
+        {
+            case GameState.Ingame:
+                Cursor.visible = true;
+                ui.OpenUI(panelName);
+                state = GameState.InGameMenu;
+                break;
+            case GameState.InGameMenu:
+                Cursor.visible = false;
+                ui.CloseUI(panelName);
+                state = GameState.Ingame;
+                break;
+        }
+    }
+
     private void Update()
     {
         if (Input.GetButtonDown("Cancel"))
         {
-            switch (state)
-            {
-                case GameState.Ingame:
-                    ui.OpenUI("ExitPopup");
-                    state = GameState.InGameMenu;
-                    break;
-                case GameState.InGameMenu:
-                    ui.CloseUI("ExitPopup");
-                    state = GameState.Ingame;
-                    break;
-            }
+            TriggerPopup("ExitPopup");
+        }
+        else if (Input.GetKeyDown("q"))
+        {
+            TriggerPopup("BulletMod");
         }
     }
 

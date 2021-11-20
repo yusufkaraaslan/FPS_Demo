@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
     List<IGunAtritube> gun;
     IGunAtritube currGun;
 
-    BulletMod bulletMod;
+    BulletMod bulletMod = new BulletMod();
     [SerializeField] CountBoard bulletCount;
     GunType currGunType;
 
@@ -29,6 +29,13 @@ public class Gun : MonoBehaviour
         }
 
         currGunType = GunType.Pistol;
+    }
+
+    public void UpdateBulletMod(bool isDelayed, bool isBigger, bool isRed)
+    {
+        bulletMod.delayedExplosion = isDelayed;
+        bulletMod.biggerBullet = isBigger;
+        bulletMod.redBullet = isRed;
     }
 
     public void ActivateGun()
